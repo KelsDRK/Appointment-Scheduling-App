@@ -2,8 +2,9 @@ package helper;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.SQLException;
 
-public class JDBC {
+public abstract class JDBC {
 
     private static final String protocol = "jdbc";
     private static final String vendor = ":mysql:";
@@ -22,9 +23,14 @@ public class JDBC {
             connection = DriverManager.getConnection(jdbcUrl, userName, password); // Reference Connection object
             System.out.println("Connection successful!");
         }
-        catch(Exception e)
+        catch(SQLException e)
         {
-            System.out.println("Error:" + e.getMessage());
+            e.printStackTrace();
+            //System.out.println("Error:" + e.getMessage());
+        }
+        catch (ClassNotFoundException e)
+        {
+            e.printStackTrace();
         }
     }
 

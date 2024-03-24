@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="384.0" prefWidth="790.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainViewController">
+<children>
+    <TextField fx:id="usernameField" layoutX="223.0" layoutY="90.0" prefHeight="37.0" prefWidth="165.0" promptText="Username" />
+    <Button fx:id="loginButtonMain" layoutX="239.0" layoutY="227.0" mnemonicParsing="false" onAction="#OnLoginButtonClicked" prefHeight="25.0" prefWidth="134.0" text="Login" />
+      <Button fx:id="resetButtonMain" layoutX="448.0" layoutY="227.0" mnemonicParsing="false" onAction="#OnResetButtonClicked" prefHeight="25.0" prefWidth="134.0" text="Reset" />
+      <PasswordField fx:id="passwordField" layoutX="223.0" layoutY="155.0" prefHeight="37.0" prefWidth="165.0" promptText="Password" />
+      <ChoiceBox fx:id="languageChoiceBox" layoutX="239.0" layoutY="296.0" prefHeight="25.0" prefWidth="134.0" />
+      <Text fx:id="usernameText" layoutX="60.0" layoutY="114.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" wrappingWidth="148.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="passwordText" layoutX="60.0" layoutY="179.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" wrappingWidth="148.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text layoutX="99.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Language" wrappingWidth="69.892578125">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="timeZoneLabel" layoutX="448.0" layoutY="314.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Time Zone:" wrappingWidth="122.892578125">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Text fx:id="timeZoneMenuText" layoutX="571.0" layoutY="313.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="196.0">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Text>
+      <Button fx:id="exitButtonMainMenu" layoutX="717.0" layoutY="345.0" mnemonicParsing="false" onAction="#OnExitButtonClicked" prefHeight="25.0" prefWidth="59.0" text="Exit" />
+</children>
+</AnchorPane>
