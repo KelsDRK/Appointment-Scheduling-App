@@ -4,15 +4,19 @@ public class Appointments {
     private int appointmentId;
     private String appointmentTitle;
     private String appointmentLocation;
+    private String appointmentType;
+    private String appointmentDescription;
     private int customerId;
     private int userId;
     private int contactId;
     private double startDateTime;
     private double endDateTime;
 
-    public Appointments(int appointmentId, String appointmentTitle, String appointmentLocation, int customerId, int userId, int contactId, double startDateTime, double endDateTime) {
+    public Appointments(int appointmentId, String appointmentTitle, String appointmentType, String appointmentDescription, String appointmentLocation, int customerId, int userId, int contactId, double startDateTime, double endDateTime) {
         this.appointmentId = appointmentId;
         this.appointmentTitle = appointmentTitle;
+        this.appointmentType = appointmentType;
+        this.appointmentDescription = appointmentDescription;
         this.appointmentLocation = appointmentLocation;
         this.customerId = customerId;
         this.userId = userId;
@@ -21,35 +25,83 @@ public class Appointments {
         this.endDateTime = endDateTime;
     }
 
-    public int getAppointmentId() {return appointmentId;}
+    public int getAppointmentId() {
+        return appointmentId;
+    }
 
-    public void setAppointmentId(int appointmentId) {this.appointmentId = appointmentId;}
+    public void setAppointmentId(int appointmentId) {
+        this.appointmentId = appointmentId;
+    }
 
-    public String getAppointmentTitle() {return appointmentTitle;}
+    public String getAppointmentTitle() {
+        return appointmentTitle;
+    }
 
-    public void setAppointmentTitle(String appointmentTitle) {this.appointmentTitle = appointmentTitle;}
+    public void setAppointmentTitle(String appointmentTitle) {
+        this.appointmentTitle = appointmentTitle;
+    }
 
-    public String getAppointmentLocation() {return appointmentLocation;}
+    public String getAppointmentLocation() {
+        return appointmentLocation;
+    }
 
-    public void setAppointmentLocation(String appointmentLocation) {this.appointmentLocation = appointmentLocation;}
+    public void setAppointmentLocation(String appointmentLocation) {
+        this.appointmentLocation = appointmentLocation;
+    }
 
-    public int getCustomerId() {return customerId;}
+    public String getAppointmentType() {
+        return appointmentType;
+    }
 
-    public void setCustomerId(int customerId) {this.customerId = customerId;}
+    public void setAppointmentType(String appointmentType) {
+        this.appointmentType = appointmentType;
+    }
 
-    public int getUserId() {return userId;}
+    public String getAppointmentDescription() {
+        return appointmentDescription;
+    }
 
-    public void setUserId(int userId) {this.userId = userId;}
+    public void setAppointmentDescription(String appointmentDescription) {
+        this.appointmentDescription = appointmentDescription;
+    }
 
-    public int getContactId() {return contactId;}
+    public int getCustomerId() {
+        return customerId;
+    }
 
-    public void setContactId(int contactId) {this.contactId = contactId;}
+    public void setCustomerId(int customerId) {
+        this.customerId = customerId;
+    }
 
-    public double getStartDateTime() {return startDateTime;}
+    public int getUserId() {
+        return userId;
+    }
 
-    public void setStartDateTime(double startDateTime) {this.startDateTime = startDateTime;}
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
 
-    public double getEndDateTime() {return endDateTime;}
+    public int getContactId() {
+        return contactId;
+    }
 
-    public void setEndDateTime(double endDateTime) {this.endDateTime = endDateTime;}
+    public void setContactId(int contactId) {
+        this.contactId = contactId;
+    }
+
+    public double getStartDateTime() {
+        return startDateTime;
+    }
+
+    public void setStartDateTime(double startDateTime) {
+        this.startDateTime = startDateTime;
+    }
+
+    public double getEndDateTime() {
+        return endDateTime;
+    }
+
+    public void setEndDateTime(double endDateTime) {
+        this.endDateTime = endDateTime;
+    }
 }

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
+   <children>
+      <Line endX="824.0" layoutX="136.0" layoutY="300.0" startX="-100.0" />
+      <TableView layoutX="36.0" layoutY="368.0" prefHeight="172.0" prefWidth="725.0">
+         <columns>
+            <TableColumn fx:id="idCustomerColumn" prefWidth="42.0" text="ID" />
+            <TableColumn fx:id="nameCustomerColumn" prefWidth="114.0" text="Name" />
+            <TableColumn fx:id="addressCustomerColumn" prefWidth="164.0" text="Address" />
+            <TableColumn fx:id="phoneNumberCustomerColumn" minWidth="0.0" prefWidth="171.0" text="Phone Number" />
+            <TableColumn fx:id="stateProvinceCustomerColumn" prefWidth="109.0" text="State/Province" />
+            <TableColumn fx:id="postalCodeCustomerColumn" prefWidth="125.0" text="Postal Code" />
+         </columns>
+      </TableView>
+      <TableView layoutX="34.0" layoutY="79.0" prefHeight="172.0" prefWidth="929.0">
+         <columns>
+            <TableColumn fx:id="idAppointmentColumn" prefWidth="42.0" text="ID" />
+            <TableColumn fx:id="titleAppointmentColumn" prefWidth="94.0" text="Title" />
+            <TableColumn fx:id="typeAppointmentColumn" prefWidth="90.0" text="Type" />
+            <TableColumn fx:id="descriptionAppointmentColumn" minWidth="0.0" prefWidth="86.0" text="Description" />
+            <TableColumn fx:id="locationAppointmentColumn" prefWidth="102.0" text="Location" />
+            <TableColumn fx:id="startDateTimeAppointmentColumn" prefWidth="136.0" text="Start Date/Time" />
+            <TableColumn fx:id="endDateTimeAppointmentColumn" prefWidth="144.0" text="End Date/Time" />
+            <TableColumn fx:id="contactAppointmentColumn" prefWidth="79.0" text="Contact" />
+            <TableColumn fx:id="customerIdAppointmentColumn" prefWidth="79.0" text="Customer ID" />
+            <TableColumn fx:id="userIdAppointmentColumn" prefWidth="79.0" text="User ID" />
+         </columns>
+      </TableView>
+      <Button fx:id="reportsButton" layoutX="804.0" layoutY="381.0" mnemonicParsing="false" onAction="#onReportsButtonAction" prefHeight="47.0" prefWidth="129.0" text="Reports" />
+      <Button fx:id="logoutButton" layoutX="804.0" layoutY="463.0" mnemonicParsing="false" onAction="#onLogoutButtonAction" prefHeight="47.0" prefWidth="129.0" text="Logout" />
+      <Button fx:id="addAppointmentButton" layoutX="45.0" layoutY="263.0" mnemonicParsing="false" onAction="#onAddAppointmentButton" text="Add" />
+      <Button fx:id="addCustomersButton" layoutX="45.0" layoutY="561.0" mnemonicParsing="false" onAction="#onAddCustomersButtonAction" text="Add" />
+      <Button fx:id="updateCustomersButton" layoutX="186.0" layoutY="561.0" mnemonicParsing="false" onAction="#onUpdateCustomersButtonAction" text="Update" />
+      <Button fx:id="deleteCustomersButton" layoutX="347.0" layoutY="561.0" mnemonicParsing="false" onAction="#onDeleteCustomersButtonAction" text="Delete" />
+      <Button fx:id="updateAppointmentButton" layoutX="186.0" layoutY="263.0" mnemonicParsing="false" onAction="#onUpdateAppointmentButton" text="Update" />
+      <Button fx:id="deleteAppointmentButton" layoutX="347.0" layoutY="263.0" mnemonicParsing="false" onAction="#onDeleteAppointmentButton" text="Delete" />
+      <RadioButton fx:id="allAppointmentsRadioButton" layoutX="846.0" layoutY="46.0" mnemonicParsing="false" onAction="#onAllAppointmentsRadioButtonAction" text="All Appointments" />
+      <RadioButton fx:id="currentMonthRadioButton" layoutX="674.0" layoutY="46.0" mnemonicParsing="false" onAction="#onCurrentMonthRadioButtonAction" text="Current Month" />
+      <RadioButton fx:id="currentWeekRadioButton" layoutX="500.0" layoutY="46.0" mnemonicParsing="false" onAction="#onCurrentWeekRadioButtonAction" text="Current Week" />
+      <Text layoutX="36.0" layoutY="42.0" strokeType="OUTSIDE" strokeWidth="0.0" text="APPOINTMENTS" wrappingWidth="129.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+      <Text layoutX="36.0" layoutY="342.0" strokeType="OUTSIDE" strokeWidth="0.0" text="CUSTOMERS" wrappingWidth="129.0">
+         <font>
+            <Font size="16.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>
