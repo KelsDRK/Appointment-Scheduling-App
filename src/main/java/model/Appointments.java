@@ -15,6 +15,9 @@ public class Appointments {
     private LocalDateTime startDateTime;
     private LocalDateTime endDateTime;
 
+    public Appointments() {
+    }
+
     public Appointments(int appointmentId, String appointmentTitle, String appointmentType, String appointmentDescription,
                         String appointmentLocation, int customerId, int userId, int contactId, LocalDateTime startDateTime,
                         LocalDateTime endDateTime) {

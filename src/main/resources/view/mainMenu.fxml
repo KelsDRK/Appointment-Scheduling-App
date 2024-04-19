@@ -8,7 +8,7 @@
 <AnchorPane prefHeight="600.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.MainMenuController">
    <children>
       <Line endX="824.0" layoutX="136.0" layoutY="300.0" startX="-100.0" />
-      <TableView layoutX="36.0" layoutY="368.0" prefHeight="172.0" prefWidth="725.0">
+      <TableView fx:id="customersTable" layoutX="36.0" layoutY="368.0" prefHeight="172.0" prefWidth="725.0">
          <columns>
             <TableColumn fx:id="idCustomerColumn" prefWidth="42.0" text="ID" />
             <TableColumn fx:id="nameCustomerColumn" prefWidth="114.0" text="Name" />
@@ -18,7 +18,7 @@
             <TableColumn fx:id="postalCodeCustomerColumn" prefWidth="125.0" text="Postal Code" />
          </columns>
       </TableView>
-      <TableView layoutX="34.0" layoutY="79.0" prefHeight="172.0" prefWidth="929.0">
+      <TableView fx:id="appointmentsTable" layoutX="34.0" layoutY="79.0" prefHeight="172.0" prefWidth="929.0">
          <columns>
             <TableColumn fx:id="idAppointmentColumn" prefWidth="42.0" text="ID" />
             <TableColumn fx:id="titleAppointmentColumn" prefWidth="94.0" text="Title" />

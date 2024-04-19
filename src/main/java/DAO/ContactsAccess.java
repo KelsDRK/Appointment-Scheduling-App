@@ -27,7 +27,7 @@ public class ContactsAccess {
     }
 
     public static String findByContactId(String contactId) throws SQLException {
-        String sql = "SELECT * FROM CONTACTS WHERE Contact_ID = ?";
+        String sql = "SELECT * FROM CONTACTS WHERE Contact_Name = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setString(1, contactId);
         ResultSet rs = ps.executeQuery();
@@ -36,4 +36,17 @@ public class ContactsAccess {
         }
         return contactId;
     }
+
+    public static String findNameByContactId (String contactId) throws SQLException {
+        String sql = "SELECT * FROM CONTACTS WHERE Contact_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, contactId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            contactId = rs.getString("Contact_Name");
+        }
+        return contactId;
+    }
+
+
 }

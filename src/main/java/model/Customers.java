@@ -5,18 +5,17 @@ public class Customers {
     private String customerName;
     private String customerAddress;
     private String customerPostalCode;
-    private int customerPhoneNumber;
+    private String customerPhoneNumber;
     private String divisionName;
     private int divisionId;
 
-    public Customers(int customerId, String customerName, String customerAddress, String customerPostalCode, int customerPhoneNumber, int divisionId, String divisionName) {
+    public Customers(int customerId, String customerName, String customerAddress, String customerPostalCode, String customerPhoneNumber, int divisionId) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerPostalCode = customerPostalCode;
         this.customerPhoneNumber = customerPhoneNumber;
         this.divisionId = divisionId;
-        this.divisionName = divisionName;
     }
 
     public int getCustomerId() {
@@ -51,11 +50,11 @@ public class Customers {
         this.customerPostalCode = customerPostalCode;
     }
 
-    public int getCustomerPhoneNumber() {
+    public String getCustomerPhoneNumber() {
         return customerPhoneNumber;
     }
 
-    public void setCustomerPhoneNumber(int customerPhoneNumber) {
+    public void setCustomerPhoneNumber(String customerPhoneNumber) {
         this.customerPhoneNumber = customerPhoneNumber;
     }
 
