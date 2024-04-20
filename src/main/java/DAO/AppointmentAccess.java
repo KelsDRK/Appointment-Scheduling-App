@@ -25,9 +25,7 @@ public class AppointmentAccess {
             String appointmentDescription = rs.getString("Description");
             String appointmentLocation = rs.getString("Location");
             String appointmentType = rs.getString("Type");
-            //LocalDateTime start = convertTimeDateLocal(rs.getTimestamp("Start").toLocalDateTime());
             LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
-            //LocalDateTime endDateTime = convertTimeDateLocal(rs.getTimestamp("End").toLocalDateTime());
             LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
             int customerId = rs.getInt("Customer_ID");
             int userId = rs.getInt("User_ID");
@@ -40,10 +38,10 @@ public class AppointmentAccess {
         return appointmentsObservableList;
     }
 
-    public static int deleteAppointment(int customerId, Connection c) throws SQLException {
-        String sql= "DELETE FROM APPOINTMENT WHERE Appointment_ID = ?";
+    public static int deleteAppointment (int appointmentId, Connection c) throws SQLException {
+        String sql= "DELETE FROM APPOINTMENTS WHERE Appointment_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-        ResultSet rs = ps.executeQuery();
+        ps.setInt(1, appointmentId);
         int result = ps.executeUpdate();
         ps.close();
         return result;

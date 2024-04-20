@@ -65,8 +65,14 @@ public class UpdateAppointment implements Initializable {
         locationTextFieldUpdateAppointment.setText(String.valueOf(appointment.getAppointmentLocation()));
         customerIdTextFieldUpdateAppointment.setText(String.valueOf(appointment.getCustomerId()));
         userIdTextFieldUpdateAppointment.setText(String.valueOf(appointment.getUserId()));
-        startTimeCBUpdateAppointment.getSelectionModel().select(String.valueOf(appointment.getStartDateTime()));
-        endTimeCBUpdateAppointment.getSelectionModel().select(String.valueOf(appointment.getEndDateTime()));
+
+        startTimeCBUpdateAppointment.getSelectionModel().select(String.valueOf(appointment.getStartDateTime().toLocalTime()));
+        endTimeCBUpdateAppointment.getSelectionModel().select(String.valueOf(appointment.getEndDateTime().toLocalTime()));
+
+        startDateFieldUpdateAppointment.setValue(appointment.getStartDateTime().toLocalDate());
+        endDateFieldUpdateAppointment.setValue(appointment.getStartDateTime().toLocalDate());
+
+
 
         try {
             contactCBUpdateAppointment.getSelectionModel().select(String.valueOf(ContactsAccess.findNameByContactId(String.valueOf(appointment.getContactId()))));
@@ -89,19 +95,19 @@ public class UpdateAppointment implements Initializable {
             while (firstAppointment.isBefore(lastAppointment)) {
                 appointmentTimes.add(String.valueOf(firstAppointment));
                 firstAppointment = firstAppointment.plusMinutes(15);
-            }
+
+}
         }
 
-        startTimeCBUpdateAppointment.setItems(appointmentTimes);
-        endTimeCBUpdateAppointment.setItems(appointmentTimes);
-        contactCBUpdateAppointment.setItems(allContactNames);
-        idTextFieldUpdateAppointment.setDisable(true);
+                startTimeCBUpdateAppointment.setItems(appointmentTimes);
+                endTimeCBUpdateAppointment.setItems(appointmentTimes);
+                contactCBUpdateAppointment.setItems(allContactNames);
+                idTextFieldUpdateAppointment.setDisable(true);
 
-    }
+                }
 
 
-
-    public void onSaveActionUpdateAppointment(ActionEvent actionEvent) {
+public void onSaveActionUpdateAppointment(ActionEvent actionEvent) {
 
         try {
 
@@ -229,10 +235,11 @@ public class UpdateAppointment implements Initializable {
                     }
                 }
 
-                String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                String sql = "UPDATE appointments SET Appointment_ID = ?, Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
 
                 PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-                ps.setInt(1, newAppointmentID);
+
+                ps.setInt(1, Integer.parseInt(idTextFieldUpdateAppointment.getText()));
                 ps.setString(2, titleTextFieldUpdateAppointment.getText());
                 ps.setString(3, descriptionTextFieldUpdateAppointment.getText());
                 ps.setString(4, locationTextFieldUpdateAppointment.getText());
@@ -241,11 +248,10 @@ public class UpdateAppointment implements Initializable {
                 ps.setTimestamp(7, Timestamp.valueOf(endUTC));
                 ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
                 ps.setString(9, "admin");
-                ps.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));
-                ps.setInt(11, 1);
-                ps.setInt(12, Integer.parseInt(customerIdTextFieldUpdateAppointment.getText()));
-                ps.setInt(13, Integer.parseInt(ContactsAccess.findByContactId(contactCBUpdateAppointment.getValue())));
-                ps.setInt(14, Integer.parseInt(ContactsAccess.findByContactId(userIdTextFieldUpdateAppointment.getText())));
+                ps.setInt(10, Integer.parseInt(customerIdTextFieldUpdateAppointment.getText()));
+                ps.setInt(11, Integer.parseInt(userIdTextFieldUpdateAppointment.getText()));
+                ps.setInt(12, Integer.parseInt(ContactsAccess.findByContactId(contactCBUpdateAppointment.getValue())));
+                ps.setInt(13, Integer.parseInt(idTextFieldUpdateAppointment.getText()));
                 ps.execute();
             }
 
@@ -272,7 +278,7 @@ public class UpdateAppointment implements Initializable {
         Optional<ButtonType> result = alert.showAndWait();
 
         if (result.get() == ButtonType.OK) {
-            Parent root = FXMLLoader.load(getClass().getResource("/view/MainMenu.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("/view/mainMenu.fxml"));
             Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
             Scene scene = new Scene(root, 1000, 600);
             stage.setTitle("Main Menu");

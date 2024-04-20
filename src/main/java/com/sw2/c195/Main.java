@@ -26,18 +26,5 @@ public class Main extends Application {
         launch();
         JDBC.closeConnection();
 
-        /*ResourceBundle rb = ResourceBundle.getBundle("/language/login", Locale.getDefault());
-
-        if (Locale.getDefault().getLanguage().equals("fr")) {
-            System.out.println(rb.getString("Login"));
-        }*/
-
-//        LocalDate myLocalDate = LocalDate.of(2024, 03, 23);
-//        LocalTime myLocalTime = LocalTime.of(17, 0);
-//        LocalDateTime myLocalDateTime = LocalDateTime.of(myLocalDate, myLocalTime);
-//        ZoneId myZoneId = ZoneId.systemDefault();
-//        ZonedDateTime myZonedDateTime = ZonedDateTime.of(myLocalDateTime, myZoneId);
-//        System.out.println(myZonedDateTime);
-
     }
 }

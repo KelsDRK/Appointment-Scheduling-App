@@ -11,7 +11,6 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -29,11 +28,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 import static helper.Utility.convertTimeDateUTC;
 
-public class AddAppointmentsController implements Initializable {
+public class AddAppointments implements Initializable {
 
     @FXML
     private TextField idTextFieldAddAppointment;
