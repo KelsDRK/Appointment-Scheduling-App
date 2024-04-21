@@ -1,5 +1,11 @@
 package model;
 
+import helper.JDBC;
+import javafx.collections.ObservableList;
+
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 public class Customers {
     private int customerId;
     private String customerName;
@@ -56,14 +62,6 @@ public class Customers {
 
     public void setCustomerPhoneNumber(String customerPhoneNumber) {
         this.customerPhoneNumber = customerPhoneNumber;
-    }
-
-    public String getDivisionName() {
-        return divisionName;
-    }
-
-    public void setDivisionName(String divisionName) {
-        this.divisionName = divisionName;
     }
 
     public int getDivisionId() {

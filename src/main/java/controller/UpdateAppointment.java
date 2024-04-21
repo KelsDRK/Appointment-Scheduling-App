@@ -65,14 +65,10 @@ public class UpdateAppointment implements Initializable {
         locationTextFieldUpdateAppointment.setText(String.valueOf(appointment.getAppointmentLocation()));
         customerIdTextFieldUpdateAppointment.setText(String.valueOf(appointment.getCustomerId()));
         userIdTextFieldUpdateAppointment.setText(String.valueOf(appointment.getUserId()));
-
         startTimeCBUpdateAppointment.getSelectionModel().select(String.valueOf(appointment.getStartDateTime().toLocalTime()));
         endTimeCBUpdateAppointment.getSelectionModel().select(String.valueOf(appointment.getEndDateTime().toLocalTime()));
-
         startDateFieldUpdateAppointment.setValue(appointment.getStartDateTime().toLocalDate());
         endDateFieldUpdateAppointment.setValue(appointment.getStartDateTime().toLocalDate());
-
-
 
         try {
             contactCBUpdateAppointment.getSelectionModel().select(String.valueOf(ContactsAccess.findNameByContactId(String.valueOf(appointment.getContactId()))));
@@ -96,16 +92,13 @@ public class UpdateAppointment implements Initializable {
                 appointmentTimes.add(String.valueOf(firstAppointment));
                 firstAppointment = firstAppointment.plusMinutes(15);
 
-}
         }
-
+            }
                 startTimeCBUpdateAppointment.setItems(appointmentTimes);
                 endTimeCBUpdateAppointment.setItems(appointmentTimes);
                 contactCBUpdateAppointment.setItems(allContactNames);
                 idTextFieldUpdateAppointment.setDisable(true);
-
-                }
-
+    }
 
 public void onSaveActionUpdateAppointment(ActionEvent actionEvent) {
 

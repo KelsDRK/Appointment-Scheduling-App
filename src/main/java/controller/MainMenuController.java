@@ -70,6 +70,8 @@ public class MainMenuController implements Initializable {
     private static Customers customer;
     public static Customers getCustomer() {return customer;}
 
+    final ToggleGroup group = new ToggleGroup();
+
 
 
 
@@ -85,7 +87,7 @@ public class MainMenuController implements Initializable {
             phoneNumberCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerPhoneNumber"));
             nameCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
             addressCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
-            stateProvinceCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
+            stateProvinceCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
             postalCodeCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
 
             idAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));
@@ -95,7 +97,6 @@ public class MainMenuController implements Initializable {
             locationAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
             endDateTimeAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             startDateTimeAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-
             contactAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
 
             customerIdAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
@@ -136,10 +137,30 @@ public class MainMenuController implements Initializable {
         stage.setScene(scene);
     }
 
-    public void onAddCustomersButtonAction(ActionEvent actionEvent) {
+    public void onAddCustomersButtonAction(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/addCustomer.fxml"));
+        Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 500, 500);
+        stage.setTitle("Add Customer");
+        stage.setScene(scene);
     }
 
-    public void onUpdateCustomersButtonAction(ActionEvent actionEvent) {
+    public void onUpdateCustomersButtonAction(ActionEvent actionEvent) throws IOException {
+
+        customer = customersTable.getSelectionModel().getSelectedItem();
+
+        if (customer == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("No customer selected, Choose a customer from the table to update.");
+            alert.showAndWait();
+        } else {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/updateCustomer.fxml"));
+            Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 500, 500);
+            stage.setTitle("Update Customer");
+            stage.setScene(scene);
+        }
     }
 
     public void onDeleteCustomersButtonAction(ActionEvent actionEvent) {
@@ -206,7 +227,12 @@ public class MainMenuController implements Initializable {
 
     }
 
+    ToggleGroup t1 = new ToggleGroup();
+
+
     public void onAllAppointmentsRadioButtonAction(ActionEvent actionEvent) {
+
+        allAppointmentsRadioButton.setToggleGroup(t1);
         try {
             ObservableList<Appointments> allAppointments = AppointmentAccess.getAllAppointments();
             appointmentsTable.setItems(allAppointments);
@@ -218,6 +244,8 @@ public class MainMenuController implements Initializable {
     }
 
     public void onCurrentMonthRadioButtonAction(ActionEvent actionEvent) {
+
+        currentMonthRadioButton.setToggleGroup(t1);
         try {
             ObservableList<Appointments> allAppointments = AppointmentAccess.getAllAppointments();
             ObservableList<Appointments> monthAppointments = FXCollections.observableArrayList();
@@ -238,6 +266,8 @@ public class MainMenuController implements Initializable {
     }
 
     public void onCurrentWeekRadioButtonAction(ActionEvent actionEvent) {
+
+        currentWeekRadioButton.setToggleGroup(t1);
         try {
             ObservableList<Appointments> allAppointments = AppointmentAccess.getAllAppointments();
             ObservableList<Appointments> weekAppointments = FXCollections.observableArrayList();

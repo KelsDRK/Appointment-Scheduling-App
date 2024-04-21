@@ -4,9 +4,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.ModifyCustomer">
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateCustomer">
    <children>
-      <Text layoutX="169.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Modify Customer" wrappingWidth="161.822265625">
+      <Text layoutX="169.0" layoutY="58.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Customer" wrappingWidth="161.822265625">
          <font>
             <Font size="20.0" />
          </font></Text>
@@ -45,14 +45,14 @@
             <Font size="16.0" />
          </font>
       </Text>
-      <TextField layoutX="250.0" layoutY="108.0" prefHeight="25.0" prefWidth="222.0" />
-      <TextField layoutX="250.0" layoutY="147.0" prefHeight="25.0" prefWidth="222.0" />
-      <TextField layoutX="250.0" layoutY="187.0" prefHeight="25.0" prefWidth="222.0" />
-      <TextField layoutX="250.0" layoutY="227.0" prefHeight="25.0" prefWidth="222.0" />
-      <ChoiceBox layoutX="250.0" layoutY="268.0" prefHeight="25.0" prefWidth="222.0" />
-      <ChoiceBox layoutX="250.0" layoutY="308.0" prefHeight="25.0" prefWidth="222.0" />
-      <TextField layoutX="250.0" layoutY="349.0" prefHeight="25.0" prefWidth="222.0" />
-      <Button layoutX="250.0" layoutY="398.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="82.0" text="Save" />
-      <Button layoutX="390.0" layoutY="398.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="82.0" text="Cancel" />
+      <TextField fx:id="updateCustomerId" layoutX="250.0" layoutY="108.0" prefHeight="25.0" prefWidth="222.0" />
+      <TextField fx:id="updateCustomerName" layoutX="250.0" layoutY="147.0" prefHeight="25.0" prefWidth="222.0" />
+      <TextField fx:id="updateCustomerAddress" layoutX="250.0" layoutY="187.0" prefHeight="25.0" prefWidth="222.0" />
+      <TextField fx:id="updateCustomerPhone" layoutX="250.0" layoutY="227.0" prefHeight="25.0" prefWidth="222.0" />
+      <TextField fx:id="updateCustomerPostal" layoutX="250.0" layoutY="349.0" prefHeight="25.0" prefWidth="222.0" />
+      <Button fx:id="updateCustomerSave" layoutX="250.0" layoutY="398.0" mnemonicParsing="false" onAction="#onSaveAction" prefHeight="37.0" prefWidth="82.0" text="Save" />
+      <Button fx:id="updateCustomerCancel" layoutX="390.0" layoutY="398.0" mnemonicParsing="false" onAction="#onCancelAction" prefHeight="37.0" prefWidth="82.0" text="Cancel" />
+      <ComboBox fx:id="updateCustomerCountry" layoutX="250.0" layoutY="267.0" prefHeight="25.0" prefWidth="222.0" />
+      <ComboBox fx:id="updateCustomerState" layoutX="250.0" layoutY="307.0" prefHeight="25.0" prefWidth="222.0" />
    </children>
 </AnchorPane>
