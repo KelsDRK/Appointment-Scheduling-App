@@ -163,7 +163,45 @@ public class MainMenuController implements Initializable {
         }
     }
 
-    public void onDeleteCustomersButtonAction(ActionEvent actionEvent) {
+    public void onDeleteCustomersButtonAction(ActionEvent actionEvent) throws SQLException {
+
+        if (customersTable.getSelectionModel().getSelectedItem() == null) {
+
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Error");
+            alert.setContentText("Select customer to be deleted.");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            System.out.println("working");
+        } else {
+
+            Connection connection = JDBC.connection;
+            int customerId = customersTable.getSelectionModel().getSelectedItem().getCustomerId();
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.initModality(Modality.NONE);
+            alert.setTitle("Delete Customer with the ID: " + customerId);
+            alert.setContentText("Confirmation: Delete Customer?");
+            Optional<ButtonType> result = alert.showAndWait();
+
+            if (result.get() == ButtonType.OK) {
+
+                CustomersAccess.deleteAppointment(customerId, connection);
+                ObservableList<Customers> updateCustomers = CustomersAccess.getAllCustomers(connection);
+                customersTable.setItems(updateCustomers);
+
+                Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Customer Deleted");
+                alert.setContentText("Customer was successfully deleted");
+                Optional<ButtonType> result1 = alert.showAndWait();
+            } else {
+                Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
+                alert.setTitle("Cancelled");
+                alert.setContentText("You clicked cancel. No customer was deleted");
+                Optional<ButtonType> result1 = alert.showAndWait();
+            }
+        }
     }
 
     public void onUpdateAppointmentButton(ActionEvent actionEvent) throws IOException {

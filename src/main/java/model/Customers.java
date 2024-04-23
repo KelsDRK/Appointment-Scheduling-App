@@ -24,6 +24,15 @@ public class Customers {
         this.divisionId = divisionId;
     }
 
+    public Customers(int customerId, String customerName, String customerAddress, String customerPostalCode, String customerPhoneNumber, String divisionName) {
+        this.customerId = customerId;
+        this.customerName = customerName;
+        this.customerAddress = customerAddress;
+        this.customerPostalCode = customerPostalCode;
+        this.customerPhoneNumber = customerPhoneNumber;
+        this.divisionName = divisionName;
+    }
+
     public int getCustomerId() {
         return customerId;
     }
@@ -66,6 +75,14 @@ public class Customers {
 
     public int getDivisionId() {
         return divisionId;
+    }
+
+    public String getDivisionName() {
+        return divisionName;
+    }
+
+    public void setDivisionName(String divisionName) {
+        this.divisionName = divisionName;
     }
 
     public void setDivisionId(int divisionId) {

@@ -116,7 +116,6 @@ public void onSaveActionUpdateAppointment(ActionEvent actionEvent) {
                 ObservableList<Integer> storeUserIDs = FXCollections.observableArrayList();
                 ObservableList<Appointments> getAllAppointments = AppointmentAccess.getAllAppointments();
 
-                //IDE converted
                 getAllCustomers.stream().map(Customers::getCustomerId).forEach(storeCustomerIDs::add);
                 getAllUsers.stream().map(User::getUserId).forEach(storeUserIDs::add);
 

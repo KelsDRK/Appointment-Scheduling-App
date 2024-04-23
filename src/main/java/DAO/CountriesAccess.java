@@ -29,4 +29,17 @@ public class CountriesAccess extends Countries{
         return countriesList;
     }
 
+    public static String findCountryById(String countryId) throws SQLException {
+        String sql = "SELECT * FROM COUNTRIES WHERE Country_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, countryId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            countryId = rs.getString("Country");
+        }
+        return countryId;
+    }
+
+
+
 }

@@ -5,6 +5,9 @@ public class FirstLevelDivisions {
     private String divisionName;
     private int countryId;
 
+    public FirstLevelDivisions() {
+    }
+
     public FirstLevelDivisions(int divisionId, String divisionName, int countryId) {
         this.countryId = countryId;
         this.divisionId = divisionId;

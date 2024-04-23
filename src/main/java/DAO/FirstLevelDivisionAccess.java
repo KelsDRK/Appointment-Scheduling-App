@@ -31,4 +31,41 @@ public class FirstLevelDivisionAccess extends FirstLevelDivisions{
         return divisionsList;
     }
 
+    public static String findStateById(String divisionId) throws SQLException {
+        String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, divisionId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            divisionId = rs.getString("Division");
+        }
+        return divisionId;
+    }
+
+    public static String findDivisionIdByState(String state) throws SQLException {
+        String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE DIVISION = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, state);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            state = rs.getString("Division_ID");
+        }
+        return state;
+
+    }
+
+    public static String findCountryByDivisionId(String divisionId) throws SQLException {
+        String sql = "SELECT * FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID = ?";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ps.setString(1, divisionId);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            divisionId = rs.getString("Country_ID");
+        }
+        return divisionId;
+    }
+
+
+
+
 }
