@@ -64,7 +64,8 @@ public class UpdateCustomer implements Initializable {
         }
 
         try {
-            updateCustomerCountry.getSelectionModel().select(String.valueOf(CountriesAccess.findCountryById(String.valueOf(FirstLevelDivisionAccess.findCountryByDivisionId(String.valueOf(customers.getDivisionId()))))));
+            updateCustomerCountry.getSelectionModel().select(String.valueOf(CountriesAccess.findCountryById(String.valueOf
+                    (FirstLevelDivisionAccess.findCountryByDivisionId(String.valueOf(customers.getDivisionId()))))));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

@@ -3,6 +3,7 @@ package DAO;
 import helper.JDBC;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import model.DivisionCount;
 import model.FirstLevelDivisions;
 
 import java.sql.PreparedStatement;
@@ -63,6 +64,45 @@ public class FirstLevelDivisionAccess extends FirstLevelDivisions{
             divisionId = rs.getString("Country_ID");
         }
         return divisionId;
+    }
+
+    public static ObservableList<DivisionCount> getDivisionCount() throws SQLException {
+
+        ObservableList<DivisionCount> divisionCount = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM CUSTOMERS";
+        PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+        ResultSet rs = ps.executeQuery();
+        while (rs.next()) {
+            String divisionID = rs.getString("Division_ID");
+
+            String divisionNameConverted = "";
+            String sql2 = "SELECT DIVISION FROM FIRST_LEVEL_DIVISIONS WHERE Division_ID = ?";
+            PreparedStatement ps2 = JDBC.connection.prepareStatement(sql2);
+            ps2.setString(1, divisionID);
+            ResultSet rs2 = ps2.executeQuery();
+            while (rs2.next()) {
+
+                divisionNameConverted = rs2.getString("Division");
+
+
+            }
+
+
+            int count = 0;
+            String sql1 = "SELECT COUNT(*) AS divisionCount FROM CUSTOMERS WHERE Division_ID = ?";
+            PreparedStatement ps1 = JDBC.connection.prepareStatement(sql1);
+            ps1.setString(1, divisionID);
+            ResultSet rs1 = ps1.executeQuery();
+
+            while (rs1.next()) {
+
+                count = rs1.getInt("divisionCount");
+
+                DivisionCount monthCount = new DivisionCount(divisionNameConverted, count);
+                divisionCount.add(monthCount);
+            }
+        }
+        return divisionCount;
     }
 
 

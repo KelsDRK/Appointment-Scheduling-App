@@ -1,18 +1,29 @@
 package model;
 
-import DAO.ContactsAccess;
-
-import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class Appointments {
     private int appointmentId;
     private String appointmentTitle;
+
+    public Appointments(int appointmentId, String appointmentTitle, String appointmentLocation, String appointmentType,
+                        String appointmentDescription, int customerId, LocalDateTime startDateTime, LocalDateTime endDateTime)
+    {
+        this.appointmentId = appointmentId;
+        this.appointmentTitle = appointmentTitle;
+        this.appointmentLocation = appointmentLocation;
+        this.appointmentType = appointmentType;
+        this.appointmentDescription = appointmentDescription;
+        this.customerId = customerId;
+        this.startDateTime = startDateTime;
+        this.endDateTime = endDateTime;
+    }
+
     private String appointmentLocation;
     private String appointmentType;
     private String appointmentDescription;
     private int customerId;
+    private String contactName;
     private int userId;
     private int contactId;
     private LocalDateTime startDateTime;
@@ -22,7 +33,7 @@ public class Appointments {
     }
 
     public Appointments(int appointmentId, String appointmentTitle, String appointmentType, String appointmentDescription,
-                        String appointmentLocation, int customerId, int userId, int contactId, LocalDateTime startDateTime,
+                        String appointmentLocation, int customerId, String contactName, int userId, int contactId, LocalDateTime startDateTime,
                         LocalDateTime endDateTime) {
         this.appointmentId = appointmentId;
         this.appointmentTitle = appointmentTitle;
@@ -34,6 +45,7 @@ public class Appointments {
         this.contactId = contactId;
         this.startDateTime = startDateTime;
         this.endDateTime = endDateTime;
+        this.contactName = contactName;
     }
 
     public int getAppointmentId() {
@@ -115,6 +127,15 @@ public class Appointments {
     public void setEndDateTime(LocalDateTime endDateTime) {
         this.endDateTime = endDateTime;
     }
+
+    public String getContactName() {
+        return contactName;
+    }
+
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
+    }
+
 
 
 }

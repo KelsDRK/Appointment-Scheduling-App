@@ -32,12 +32,11 @@ public class CustomersAccess {
         return customerList;
     }
 
-    public static int deleteAppointment (int customerId, Connection c) throws SQLException {
+    public static void deleteCustomer (int customerId, Connection c) throws SQLException {
         String sql= "DELETE FROM CUSTOMERS WHERE Customer_ID = ?";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ps.setInt(1, customerId);
-        int result = ps.executeUpdate();
+        ps.executeUpdate();
         ps.close();
-        return result;
     }
 }

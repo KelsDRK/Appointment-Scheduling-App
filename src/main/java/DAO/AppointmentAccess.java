@@ -16,7 +16,9 @@ public class AppointmentAccess {
 
     public static ObservableList<Appointments> getAllAppointments() throws SQLException, SQLException {
         ObservableList<Appointments> appointmentsObservableList = FXCollections.observableArrayList();
-        String sql = "SELECT * from appointments";
+        String sql = "SELECT "
+                +"a.Appointment_ID, a.Title, a.Description, a.Location, a.Type, a.Start, a.End, a.Customer_ID, c.Contact_Name, a.user_id, a.contact_id"
+                +" from appointments AS a JOIN CONTACTS AS c ON c.contact_id = a.contact_id";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -27,14 +29,15 @@ public class AppointmentAccess {
             String appointmentType = rs.getString("Type");
             LocalDateTime startDateTime = rs.getTimestamp("Start").toLocalDateTime();
             LocalDateTime endDateTime = rs.getTimestamp("End").toLocalDateTime();
-            int customerId = rs.getInt("Customer_ID");
+            int customerId = rs.getInt("customer_id");
+            String contactName = rs.getString("Contact_Name");
+            System.out.println(contactName);
             int userId = rs.getInt("User_ID");
             int contactId = rs.getInt("Contact_ID");
             Appointments appointment = new Appointments(appointmentId, appointmentTitle, appointmentType, appointmentDescription,
-                    appointmentLocation, customerId, userId, contactId, startDateTime, endDateTime);
+                    appointmentLocation, customerId, contactName, userId, contactId, startDateTime, endDateTime);
             appointmentsObservableList.add(appointment);
         }
-
         return appointmentsObservableList;
     }
 

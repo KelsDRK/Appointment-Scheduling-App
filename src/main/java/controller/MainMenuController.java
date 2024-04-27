@@ -97,7 +97,7 @@ public class MainMenuController implements Initializable {
             locationAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentLocation"));
             endDateTimeAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("endDateTime"));
             startDateTimeAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("startDateTime"));
-            contactAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("contactId"));
+            contactAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("contactName"));
 
             customerIdAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
             userIdAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("userId"));
@@ -110,7 +110,12 @@ public class MainMenuController implements Initializable {
     }
 
 
-    public void onReportsButtonAction(ActionEvent actionEvent) {
+    public void onReportsButtonAction(ActionEvent actionEvent) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("/view/reportsView.fxml"));
+        Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
+        Scene scene = new Scene(root, 900, 500);
+        stage.setTitle("Reports");
+        stage.setScene(scene);
     }
 
     public void onLogoutButtonAction(ActionEvent actionEvent) throws IOException {
@@ -123,7 +128,7 @@ public class MainMenuController implements Initializable {
         if (result.get() == ButtonType.OK) {
             Parent root = FXMLLoader.load(getClass().getResource("/view/loginPage.fxml"));
             Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
-            Scene scene = new Scene(root, 1000, 800);
+            Scene scene = new Scene(root, 800, 450);
             stage.setTitle("Modify Part");
             stage.setScene(scene);
         }
@@ -187,13 +192,23 @@ public class MainMenuController implements Initializable {
 
             if (result.get() == ButtonType.OK) {
 
-                CustomersAccess.deleteAppointment(customerId, connection);
+                CustomersAccess.deleteCustomer(customerId, connection);
                 ObservableList<Customers> updateCustomers = CustomersAccess.getAllCustomers(connection);
                 customersTable.setItems(updateCustomers);
 
+                String sql= "DELETE FROM APPOINTMENTS WHERE Customer_ID = ?";
+                PreparedStatement ps = JDBC.connection.prepareStatement(sql);
+                int appointmentCustomerID = customerId;
+                ps.setInt(1, appointmentCustomerID);
+                ps.executeUpdate();
+                ps.close();
+
+                ObservableList<Appointments> updateAppointments = AppointmentAccess.getAllAppointments();
+                appointmentsTable.setItems(updateAppointments);
+
                 Alert alert1 = new Alert(Alert.AlertType.CONFIRMATION);
                 alert.setTitle("Customer Deleted");
-                alert.setContentText("Customer was successfully deleted");
+                alert.setContentText("Customer and associated appointments successfully deleted");
                 Optional<ButtonType> result1 = alert.showAndWait();
             } else {
                 Alert alert2 = new Alert(Alert.AlertType.CONFIRMATION);
