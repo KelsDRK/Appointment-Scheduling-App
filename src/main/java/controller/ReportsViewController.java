@@ -24,14 +24,11 @@ import java.net.URL;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
-import java.time.Month;
-import java.util.Collections;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class ReportsView implements Initializable {
+public class ReportsViewController implements Initializable {
 
     @FXML public TableView<Appointments> reportsTable;
     @FXML public TableColumn<Appointments, Integer> idColumn;

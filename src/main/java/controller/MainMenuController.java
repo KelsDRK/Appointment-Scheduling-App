@@ -87,7 +87,7 @@ public class MainMenuController implements Initializable {
             phoneNumberCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerPhoneNumber"));
             nameCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerName"));
             addressCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerAddress"));
-            stateProvinceCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("divisionId"));
+            stateProvinceCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("divisionName"));
             postalCodeCustomerColumn.setCellValueFactory(new PropertyValueFactory<>("customerPostalCode"));
 
             idAppointmentColumn.setCellValueFactory(new PropertyValueFactory<>("appointmentId"));

@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import model.Appointments;
 import model.Contacts;
@@ -22,95 +23,92 @@ import model.User;
 
 import java.io.IOException;
 import java.net.URL;
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-import java.util.Random;
 import java.util.ResourceBundle;
 
 import static helper.Utility.convertTimeDateUTC;
 
-public class AddAppointments implements Initializable {
+public class UpdateAppointmentController implements Initializable {
 
-    @FXML
-    private TextField idTextFieldAddAppointment;
-    @FXML
-    private TextField titleTextFieldAddAppointment;
-    @FXML
-    private TextField typeTextFieldAddAppointment;
-    @FXML
-    private TextField descriptionTextFieldAddAppointment;
-    @FXML
-    private TextField locationTextFieldAddAppointment;
-    @FXML
-    private TextField customerIdTextFieldAddAppointment;
-    @FXML
-    private TextField userIdTextFieldAddAppointment;
-    @FXML
-    private ComboBox<String> startTimeCBAddAppointment;
-    @FXML
-    private ComboBox<String> endTimeCBAddAppointment;
-    @FXML
-    private ComboBox<String> contactCBAddAppointment;
-    @FXML
-    private DatePicker startDateFieldAddAppointment;
-    @FXML
-    private DatePicker endDateFieldAddAppointment;
-    @FXML
-    private Button saveButtonAddAppointment;
-    @FXML
-    private Button cancelButtonAddAppointment;
+    @FXML private TextField idTextFieldUpdateAppointment;
+    @FXML private TextField titleTextFieldUpdateAppointment;
+    @FXML private TextField typeTextFieldUpdateAppointment;
+    @FXML private TextField descriptionTextFieldUpdateAppointment;
+    @FXML private TextField locationTextFieldUpdateAppointment;
+    @FXML private TextField customerIdTextFieldUpdateAppointment;
+    @FXML private TextField userIdTextFieldUpdateAppointment;
+    @FXML private ComboBox<String> startTimeCBUpdateAppointment;
+    @FXML private ComboBox<String> endTimeCBUpdateAppointment;
+    @FXML private ComboBox<String> contactCBUpdateAppointment;
+    @FXML private DatePicker startDateFieldUpdateAppointment;
+    @FXML private DatePicker endDateFieldUpdateAppointment;
+    @FXML private Button saveButtonUpdateAppointment;
+    @FXML private Button cancelButtonUpdateAppointment;
 
-    Random random = new Random();
-
+    private Appointments appointment;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        idTextFieldAddAppointment.setDisable(true);
-        idTextFieldAddAppointment.setText(getNewAppointmentID());
+        appointment = MainMenuController.getAppointment();
 
-        ObservableList<Contacts> contactsObservableList = null;
+        idTextFieldUpdateAppointment.setText(String.valueOf(appointment.getAppointmentId()));
+        titleTextFieldUpdateAppointment.setText(String.valueOf(appointment.getAppointmentTitle()));
+        typeTextFieldUpdateAppointment.setText(String.valueOf(appointment.getAppointmentType()));
+        descriptionTextFieldUpdateAppointment.setText(String.valueOf(appointment.getAppointmentDescription()));
+        locationTextFieldUpdateAppointment.setText(String.valueOf(appointment.getAppointmentLocation()));
+        customerIdTextFieldUpdateAppointment.setText(String.valueOf(appointment.getCustomerId()));
+        userIdTextFieldUpdateAppointment.setText(String.valueOf(appointment.getUserId()));
+        startTimeCBUpdateAppointment.getSelectionModel().select(String.valueOf(appointment.getStartDateTime().toLocalTime()));
+        endTimeCBUpdateAppointment.getSelectionModel().select(String.valueOf(appointment.getEndDateTime().toLocalTime()));
+        startDateFieldUpdateAppointment.setValue(appointment.getStartDateTime().toLocalDate());
+        endDateFieldUpdateAppointment.setValue(appointment.getStartDateTime().toLocalDate());
+
         try {
-            contactsObservableList = ContactsAccess.getAllContacts();
+            contactCBUpdateAppointment.getSelectionModel().select(String.valueOf(ContactsAccess.findNameByContactId(String.valueOf(appointment.getContactId()))));
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
 
-        ObservableList<String> allContactNames = FXCollections.observableArrayList();
+        ObservableList<Contacts> appointmentsObservableList = null;
+        try {appointmentsObservableList = ContactsAccess.getAllContacts();}
+        catch (SQLException e) {throw new RuntimeException(e);}
 
-        //lambda #2
-        contactsObservableList.forEach(contacts -> allContactNames.add(contacts.getContactName()));
+        ObservableList<String> allContactNames = FXCollections.observableArrayList();
+        appointmentsObservableList.forEach(contacts -> allContactNames.add(contacts.getContactName()));
 
         ObservableList<String> appointmentTimes = FXCollections.observableArrayList();
-
         LocalTime firstAppointment = LocalTime.MIN.plusHours(8);
         LocalTime lastAppointment = LocalTime.MAX.minusHours(1).minusMinutes(45);
 
-        //fixed issue with infinite loop
         if (!firstAppointment.equals(0) || !lastAppointment.equals(0)) {
             while (firstAppointment.isBefore(lastAppointment)) {
                 appointmentTimes.add(String.valueOf(firstAppointment));
                 firstAppointment = firstAppointment.plusMinutes(15);
-            }
+
         }
-
-        startTimeCBAddAppointment.setItems(appointmentTimes);
-        endTimeCBAddAppointment.setItems(appointmentTimes);
-        contactCBAddAppointment.setItems(allContactNames);
-
+            }
+                startTimeCBUpdateAppointment.setItems(appointmentTimes);
+                endTimeCBUpdateAppointment.setItems(appointmentTimes);
+                contactCBUpdateAppointment.setItems(allContactNames);
+                idTextFieldUpdateAppointment.setDisable(true);
     }
 
-    public void onSaveActionAddAppointment(ActionEvent actionEvent) throws SQLException {
+public void onSaveActionUpdateAppointment(ActionEvent actionEvent) {
 
         try {
 
             Connection connection = JDBC.connection;
 
-            if (!titleTextFieldAddAppointment.getText().isEmpty() && !descriptionTextFieldAddAppointment.getText().isEmpty() && !locationTextFieldAddAppointment.getText().isEmpty() && !typeTextFieldAddAppointment.getText().isEmpty()
-                    && startDateFieldAddAppointment.getValue() != null && endDateFieldAddAppointment.getValue() != null && !startTimeCBAddAppointment.getValue().isEmpty() && !endTimeCBAddAppointment.getValue().isEmpty()
-                    && !customerIdTextFieldAddAppointment.getText().isEmpty()) {
+            if (!titleTextFieldUpdateAppointment.getText().isEmpty() && !descriptionTextFieldUpdateAppointment.getText().isEmpty() && !locationTextFieldUpdateAppointment.getText().isEmpty() && !typeTextFieldUpdateAppointment.getText().isEmpty()
+                    && startDateFieldUpdateAppointment.getValue() != null && endDateFieldUpdateAppointment.getValue() != null && !startTimeCBUpdateAppointment.getValue().isEmpty() && !endTimeCBUpdateAppointment.getValue().isEmpty()
+                    && !customerIdTextFieldUpdateAppointment.getText().isEmpty()) {
 
                 ObservableList<Customers> getAllCustomers = CustomersAccess.getAllCustomers(connection);
                 ObservableList<Integer> storeCustomerIDs = FXCollections.observableArrayList();
@@ -118,26 +116,25 @@ public class AddAppointments implements Initializable {
                 ObservableList<Integer> storeUserIDs = FXCollections.observableArrayList();
                 ObservableList<Appointments> getAllAppointments = AppointmentAccess.getAllAppointments();
 
-                //IDE converted
                 getAllCustomers.stream().map(Customers::getCustomerId).forEach(storeCustomerIDs::add);
                 getAllUsers.stream().map(User::getUserId).forEach(storeUserIDs::add);
 
-                LocalDate localDateEnd = endDateFieldAddAppointment.getValue();
-                LocalDate localDateStart = startDateFieldAddAppointment.getValue();
+                LocalDate localDateEnd = endDateFieldUpdateAppointment.getValue();
+                LocalDate localDateStart = startDateFieldUpdateAppointment.getValue();
 
                 DateTimeFormatter minHourFormat = DateTimeFormatter.ofPattern("HH:mm");
-                String appointmentStartDate = startDateFieldAddAppointment.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                String appointmentStartTime = String.valueOf(startTimeCBAddAppointment.getValue());
+                String appointmentStartDate = startDateFieldUpdateAppointment.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                String appointmentStartTime = String.valueOf(startTimeCBUpdateAppointment.getValue());
 
-                String endDate = endDateFieldAddAppointment.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-                String endTime = endTimeCBAddAppointment.getValue();
+                String endDate = endDateFieldUpdateAppointment.getValue().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+                String endTime = endTimeCBUpdateAppointment.getValue();
 
                 System.out.println("thisDate + thisStart " + appointmentStartDate + " " + appointmentStartTime + ":00");
                 String startUTC = convertTimeDateUTC(appointmentStartDate + " " + appointmentStartTime + ":00");
                 String endUTC = convertTimeDateUTC(endDate + " " + endTime + ":00");
 
-                LocalTime localTimeStart = LocalTime.parse(startTimeCBAddAppointment.getValue(), minHourFormat);
-                LocalTime LocalTimeEnd = LocalTime.parse(endTimeCBAddAppointment.getValue(), minHourFormat);
+                LocalTime localTimeStart = LocalTime.parse(startTimeCBUpdateAppointment.getValue(), minHourFormat);
+                LocalTime LocalTimeEnd = LocalTime.parse(endTimeCBUpdateAppointment.getValue(), minHourFormat);
 
                 LocalDateTime dateTimeStart = LocalDateTime.of(localDateStart, localTimeStart);
                 LocalDateTime dateTimeEnd = LocalDateTime.of(localDateEnd, LocalTimeEnd);
@@ -178,7 +175,7 @@ public class AddAppointments implements Initializable {
                 }
 
                 int newAppointmentID = Integer.parseInt(String.valueOf((int) (Math.random() * 100)));
-                int customerID = Integer.parseInt(customerIdTextFieldAddAppointment.getText());
+                int customerID = Integer.parseInt(customerIdTextFieldUpdateAppointment.getText());
 
                 if (dateTimeStart.isAfter(dateTimeEnd)) {
                     System.out.println("Appointment has start time after end time");
@@ -230,23 +227,23 @@ public class AddAppointments implements Initializable {
                     }
                 }
 
-                String sql = "INSERT INTO appointments (Appointment_ID, Title, Description, Location, Type, Start, End, Create_Date, Created_By, Last_Update, Last_Updated_By, Customer_ID, User_ID, Contact_ID) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                String sql = "UPDATE appointments SET Appointment_ID = ?, Title = ?, Description = ?, Location = ?, Type = ?, Start = ?, End = ?, Last_Update = ?, Last_Updated_By = ?, Customer_ID = ?, User_ID = ?, Contact_ID = ? WHERE Appointment_ID = ?";
 
                 PreparedStatement ps = JDBC.connection.prepareStatement(sql);
-                ps.setInt(1, newAppointmentID);
-                ps.setString(2, titleTextFieldAddAppointment.getText());
-                ps.setString(3, descriptionTextFieldAddAppointment.getText());
-                ps.setString(4, locationTextFieldAddAppointment.getText());
-                ps.setString(5, typeTextFieldAddAppointment.getText());
+
+                ps.setInt(1, Integer.parseInt(idTextFieldUpdateAppointment.getText()));
+                ps.setString(2, titleTextFieldUpdateAppointment.getText());
+                ps.setString(3, descriptionTextFieldUpdateAppointment.getText());
+                ps.setString(4, locationTextFieldUpdateAppointment.getText());
+                ps.setString(5, typeTextFieldUpdateAppointment.getText());
                 ps.setTimestamp(6, Timestamp.valueOf(startUTC));
                 ps.setTimestamp(7, Timestamp.valueOf(endUTC));
                 ps.setTimestamp(8, Timestamp.valueOf(LocalDateTime.now()));
                 ps.setString(9, "admin");
-                ps.setTimestamp(10, Timestamp.valueOf(LocalDateTime.now()));
-                ps.setInt(11, 1);
-                ps.setInt(12, Integer.parseInt(customerIdTextFieldAddAppointment.getText()));
-                ps.setInt(13, Integer.parseInt(ContactsAccess.findByContactId(contactCBAddAppointment.getValue())));
-                ps.setInt(14, Integer.parseInt(ContactsAccess.findByContactId(userIdTextFieldAddAppointment.getText())));
+                ps.setInt(10, Integer.parseInt(customerIdTextFieldUpdateAppointment.getText()));
+                ps.setInt(11, Integer.parseInt(userIdTextFieldUpdateAppointment.getText()));
+                ps.setInt(12, Integer.parseInt(ContactsAccess.findByContactId(contactCBUpdateAppointment.getValue())));
+                ps.setInt(13, Integer.parseInt(idTextFieldUpdateAppointment.getText()));
                 ps.execute();
             }
 
@@ -261,25 +258,26 @@ public class AddAppointments implements Initializable {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
     }
 
+    public void onCancelActionUpdateAppointment(ActionEvent actionEvent) throws IOException {
 
-    public void onCancelActionAddAppointment(ActionEvent actionEvent) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("/view/mainMenu.fxml"));
-        Stage stage = (Stage) ((Button)actionEvent.getSource()).getScene().getWindow();
-        Scene scene = new Scene(root, 1000, 600);
-        stage.setTitle("Main Menu");
-        stage.setScene(scene);
-    }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.initModality(Modality.NONE);
+        alert.setTitle("Confirm Update Cancellation");
+        alert.setContentText("Cancel updating appointment? You will be returned to the main menu.");
+        Optional<ButtonType> result = alert.showAndWait();
 
-    public String getNewAppointmentID() {
-        int productId = random.nextInt();
-        boolean partFound = false;
-        // the new ID will be 4 digits or fewer
-        while (productId < 1000 || productId > 9999) {
-            productId = random.nextInt();
+        if (result.get() == ButtonType.OK) {
+            Parent root = FXMLLoader.load(getClass().getResource("/view/mainMenu.fxml"));
+            Stage stage = (Stage) ((Button) actionEvent.getSource()).getScene().getWindow();
+            Scene scene = new Scene(root, 1000, 600);
+            stage.setTitle("Main Menu");
+            stage.setScene(scene);
+        } else {
+            System.out.println("You clicked cancel. Please complete update form.");
         }
-        return Integer.toString(productId);
     }
 
 }

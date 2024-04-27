@@ -14,7 +14,9 @@ public class CustomersAccess {
 
     public static ObservableList<Customers> getAllCustomers (Connection connection) throws SQLException {
         ObservableList<Customers> customerList = FXCollections.observableArrayList();
-        String sql = "SELECT * FROM CUSTOMERS";
+        String sql = "SELECT "
+                +"c.customer_id, c.customer_name, c.address, c.postal_code, c.phone, c.division_id, fld.division"+
+                " from customers AS c JOIN first_level_divisions AS fld ON fld.division_id = c.division_id";
         PreparedStatement ps = JDBC.connection.prepareStatement(sql);
         ResultSet rs = ps.executeQuery();
         while (rs.next()) {
@@ -23,10 +25,10 @@ public class CustomersAccess {
             String customerAddress = rs.getString("Address");
             String postalCode = rs.getString("Postal_Code");
             String customerPhoneNumber = rs.getString("Phone");
-            //String divisionName = rs.getString("Division");
+            String divisionName = rs.getString("Division");
             int divisionId = rs.getInt("Division_ID");
             Customers customer = new Customers(customerId, customerName, customerAddress, postalCode, customerPhoneNumber,
-                    divisionId);
+                    divisionName, divisionId);
             customerList.add(customer);
         }
         return customerList;

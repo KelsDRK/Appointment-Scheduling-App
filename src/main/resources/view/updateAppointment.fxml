@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="650.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateAppointment">
+<AnchorPane prefHeight="650.0" prefWidth="475.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.UpdateAppointmentController">
    <children>
       <Text layoutX="97.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Update Appointment" textAlignment="CENTER" wrappingWidth="292.13671875">
          <font>

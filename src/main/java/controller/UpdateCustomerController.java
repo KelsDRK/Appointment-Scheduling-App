@@ -1,8 +1,6 @@
 package controller;
 
-import DAO.ContactsAccess;
 import DAO.CountriesAccess;
-import DAO.CustomersAccess;
 import DAO.FirstLevelDivisionAccess;
 import helper.JDBC;
 import javafx.collections.FXCollections;
@@ -16,7 +14,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import jogamp.common.os.PlatformPropsImpl;
 import model.Countries;
 import model.Customers;
 import model.FirstLevelDivisions;
@@ -31,7 +28,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-public class UpdateCustomer implements Initializable {
+public class UpdateCustomerController implements Initializable {
 
 
     @FXML private TextField updateCustomerId;

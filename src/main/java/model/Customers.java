@@ -24,13 +24,14 @@ public class Customers {
         this.divisionId = divisionId;
     }
 
-    public Customers(int customerId, String customerName, String customerAddress, String customerPostalCode, String customerPhoneNumber, String divisionName) {
+    public Customers(int customerId, String customerName, String customerAddress, String customerPostalCode, String customerPhoneNumber, String divisionName, int divisionId) {
         this.customerId = customerId;
         this.customerName = customerName;
         this.customerAddress = customerAddress;
         this.customerPostalCode = customerPostalCode;
         this.customerPhoneNumber = customerPhoneNumber;
         this.divisionName = divisionName;
+        this.divisionId = divisionId;
     }
 
     public int getCustomerId() {
